@@ -78,7 +78,7 @@ def Frax(wd,id, age, weight, height,  prefra, parent, smoke, rheu,  drink, corti
   HipFracture = wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_lbrs2')
   HipFracture = findkeyinfo(HipFracture)
 
-  print(countryname,((str(int(id))).zfill(5)),"|","Sex:{}|Age:{}|Tscore:{}|{}|MR:{}|HR:{}".format(sexF,ageF,Tscore,Majorosteo, HipFracture ) )
+  print(countryname,((str(int(id))).zfill(5)),"{}|Age:{}|Tscore:{}|MR:{}|HR:{}".format(sexF,ageF,Tscore,Majorosteo, HipFracture ) )
   outputallthing= [int(id), sexF,ageF,weighF, heighF,prefra,parent,smoke,rheu,drink,corti,bmdF,dxaF,Tscore,Majorosteo, HipFracture]
   return outputallthing
 

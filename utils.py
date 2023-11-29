@@ -68,8 +68,7 @@ def Frax(wd,id, age, weight, height,  prefra, parent, smoke, rheu,  drink, corti
   time.sleep(.31)
 
   wd.execute_script("window.scrollTo(0, window.scrollY + 180)")
-  wd.save_screenshot('ss1.png')
-  wd.save_screenshot('/content/tommy/FRAXphoto/{}.png'.format(((str(int(id))).zfill(5))))
+  wd.save_screenshot('{}/{}.png'.format(folder,((str(int(id))).zfill(5))))
   Tscore =  wd.find_element(By.ID,'score')
   Tscore = findkeyinfo(Tscore)
   Tscore = Tscore[7:]

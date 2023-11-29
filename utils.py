@@ -68,6 +68,7 @@ def Frax(wd,id, age, weight, height,  prefra, parent, smoke, rheu,  drink, corti
   time.sleep(.31)
 
   wd.execute_script("window.scrollTo(0, window.scrollY + 180)")
+  wd.save_screenshot('ss1.png')
   wd.save_screenshot('{}/{}.png'.format(folder,((str(int(id))).zfill(5))))
   Tscore =  wd.find_element(By.ID,'score')
   Tscore = findkeyinfo(Tscore)
@@ -77,8 +78,8 @@ def Frax(wd,id, age, weight, height,  prefra, parent, smoke, rheu,  drink, corti
   HipFracture = wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_lbrs2')
   HipFracture = findkeyinfo(HipFracture)
 
-  print(countryname,((str(int(id))).zfill(5)),"|","Sex:{}|Age:{}|weight:{}|height:{}|BMD:{}|{}|MR:{}|HR:{}".format(sexF,ageF,weighF, heighF,bmdF,Tscore,Majorosteo, HipFracture ) )
+  print(countryname,((str(int(id))).zfill(5)),"|","Sex:{}|Age:{}|Tscore:{}|{}|MR:{}|HR:{}".format(sexF,ageF,Tscore,Majorosteo, HipFracture ) )
   outputallthing= [int(id), sexF,ageF,weighF, heighF,prefra,parent,smoke,rheu,drink,corti,bmdF,dxaF,Tscore,Majorosteo, HipFracture]
-  return Majorosteo, HipFracture, outputallthing
+  return outputallthing
 
 

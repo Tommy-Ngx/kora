@@ -5,7 +5,7 @@
 #
 # Miscellaneous utilities.
 #
-
+import os, pytz, time, shutil, requests, glob, re,sys
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -15,13 +15,14 @@ from selenium.webdriver.common.action_chains import ActionChains
 from PIL import Image
 from kora.selenium import wd as wd2
 
-os.makedirs("/content/tommy/FRAXphoto", exist_ok=True)
+
 def findkeyinfo(countryname):
   countryname = re.findall(r'>(.*?)\<', str(countryname))
   countryname = re.sub('[^A-Za-z0-9.-]+','', str(countryname))
   return countryname
 
-def Frax(wd,id, age, weight, height,  prefra, parent, smoke, rheu,  drink, corti, bmd):
+def Frax(wd,id, age, weight, height,  prefra, parent, smoke, rheu,  drink, corti, bmd, folder):
+  os.makedirs(folder, exist_ok=True)
   wd.refresh()
   wd.get("https://www.sheffield.ac.uk/FRAX/tool.aspx?country=57")
   # Fill data

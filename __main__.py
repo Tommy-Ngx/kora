@@ -2,17 +2,18 @@
 
 import argparse
 import pandas as pd
-from utils import download_file_from_google_drive, findkeyinfo, Frax
+from utils import download_file_from_google_drive, Frax
 from kora.selenium import wd as wd2
 from tqdm import tqdm
 from datetime import datetime
+from google.colab import output as output2
 import os
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Frax Crawling Script")
     parser.add_argument("--dataset-dir", required=True, help="Path to the CSV dataset file")
     parser.add_argument("--save-to", required=True, help="Path to save the output")
-    parser.argument("--BMD-column", required=True, help="BMD column name")
+    parser.add_argument("--BMD-column", required=True, help="BMD column name")
     return parser.parse_args()
 
 def main():
@@ -20,14 +21,15 @@ def main():
 
     # Load CSV file using pandas
     FraxInput = pd.read_csv(args.dataset_dir)
+    filtered_row_count1 = len(FraxInput)
     FraxInput = FraxInput[FraxInput[args.BMD_column].notnull()]
     FraxInput = FraxInput[FraxInput['AGE'] >= 40]
     FraxInput = FraxInput[(FraxInput['WGHT'] >= 25) & (FraxInput['WGHT'] <= 125)]
-
+    output2.clear()
     # Print filtered row count
     filtered_row_count = len(FraxInput)
+    print(f"Current row count: {filtered_row_count}")
     print(f"Filtered row count: {filtered_row_count}")
-    print(f"Number of rows filtered out: {initial_row_count - filtered_row_count}")
 
     FraxResult = []
 

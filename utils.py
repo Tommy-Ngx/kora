@@ -14,7 +14,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from PIL import Image
 from kora.selenium import wd as wd2
-
+from tqdm import tqdm
 
 def download_file_from_google_drive(file_id, destination):
     url = f"https://drive.google.com/uc?id={file_id}"
@@ -30,16 +30,120 @@ def findkeyinfo(countryname):
   countryname = re.sub('[^A-Za-z0-9.-]+','', str(countryname))
   return countryname
 
+def Frax(wd, id, gender, age, weight, height, prefra, nfall, parent, smoke, rheu, drink, corti, bmd, folder):
+    os.makedirs(folder, exist_ok=True)
+    wd.refresh()
+    wd.get("https://www.sheffield.ac.uk/FRAX/tool.aspx?country=57")
+    # Fill data
+    wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_nameid').clear()
+    wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_nameid').send_keys(id)
+    wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_toolage').clear()
+    wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_toolage').send_keys(age)
 
-def click_option_by_value(wd, option_id, value):
-    option_xpath = f'//*[@id="{option_id}"]/option[{value}]'
-    wd.find_element(By.XPATH, option_xpath).click()
+    if gender > 0:
+        wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_sex1').click()
+    else:
+        wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_sex2').click()
+
+    wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_toolweight').clear()
+    wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_toolweight').send_keys(weight)
+    wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_ht').clear()
+    wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_ht').send_keys(height)
+    wd.find_element(By.XPATH, '//*[@id="dxa"]/option[3]').click()
+    wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_bmd_input').clear()
+    wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_bmd_input').send_keys(bmd)
+
+    if prefra > 0:
+        wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_previousfracture2').click()
+    else:
+        wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_previousfracture1').click()
+
+    if parent > 0:
+        wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_pfracturehip2').click()
+    else:
+        wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_pfracturehip1').click()
+
+    if smoke > 0:
+        wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_currentsmoker2').click()
+    else:
+        wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_currentsmoker1').click()
+
+    if corti > 0:
+        wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_glucocorticoids2').click()
+    else:
+        wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_glucocorticoids1').click()
+
+    if rheu > 0:
+        wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_arthritis2').click()
+    else:
+        wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_arthritis1').click()
+
+    if drink > 0:
+        wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_alcohol2').click()
+    else:
+        wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_alcohol1').click()
+
+    countryname = str(wd.find_element(By.ID, "CountryText"))
+    countryname = findkeyinfo(countryname)
+
+    if gender > 0:
+        sexF = wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_sex1').get_attribute("value")
+    else:
+        sexF = wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_sex2').get_attribute("value")
+
+    sexF = sexF[0].capitalize()
+    ageF = wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_toolage').get_attribute("value")
+    weighF = wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_toolweight').get_attribute("value")
+    heighF = wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_ht').get_attribute("value")
+    bmdF = wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_bmd_input').get_attribute("value")
+    dxaF = wd.find_element(By.XPATH, '//*[@id="dxa"]').get_attribute("value")
+    time.sleep(2)
+
+    wd.find_element(By.XPATH, '//*[@id="ctl00_ContentPlaceHolder1_btnCalculate"]').click()
+    time.sleep(.31)
+
+    wd.execute_script("window.scrollTo(0, window.scrollY + 180)")
+    wd.save_screenshot('ss1.png')
+    wd.save_screenshot('{}/{}.png'.format(folder, ((str(int(id))).zfill(5))))
+    Tscore = wd.find_element(By.ID, 'score')
+    Tscore = findkeyinfo(Tscore)
+    Tscore = Tscore[7:]
+    Majorosteo = wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_lbrs1')
+    Majorosteo = findkeyinfo(Majorosteo)
+    HipFracture = wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_lbrs2')
+    HipFracture = findkeyinfo(HipFracture)
+
+    #tqdm.write("{}|Age:{}|Tscore:{}|MR:{}|HR:{}".format(countryname, ((str(int(id))).zfill(5)), sexF, ageF, Tscore,
+    #                                                      Majorosteo, HipFracture))
+
+    outputallthing = [int(id), sexF, ageF, weighF, heighF, prefra, nfall, parent, smoke, rheu, drink, corti, bmdF, dxaF,
+                      Tscore, Majorosteo, HipFracture]
+    return outputallthing
+
+
+def click_option_by_value(wd, select_id, value):
+    # Wait for the element to be present
+    select = WebDriverWait(wd, 10).until(
+        EC.presence_of_element_located((By.ID, select_id))
+    )
+
+    # Scroll into view if needed
+    wd.execute_script("arguments[0].scrollIntoView();", select)
+
+    # Find the option using XPath
+    option_xpath = f'//*[@id="{select_id}"]/option[@value="{value}"]'
+    option = WebDriverWait(wd, 10).until(
+        EC.presence_of_element_located((By.XPATH, option_xpath))
+    )
+
+    # Click the option
+    option.click()
 
 def set_input_value(wd, input_id, value):
     wd.find_element(By.ID, input_id).clear()
     wd.find_element(By.ID, input_id).send_keys(value)
 
-def Frax(wd, id, gender, age, weight, height, prefra, nfall, parent, smoke, rheu, drink, corti, bmd, folder):
+def Frax2(wd, id, gender, age, weight, height, prefra, nfall, parent, smoke, rheu, drink, corti, bmd, folder):
     os.makedirs(folder, exist_ok=True)
     wd.refresh()
     wd.get("https://www.sheffield.ac.uk/FRAX/tool.aspx?country=57")

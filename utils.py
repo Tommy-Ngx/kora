@@ -67,7 +67,9 @@ def Frax(wd,id, gender ,age, weight, height,  prefra, nfall, parent, smoke, rheu
 
   countryname = str(wd.find_element(By.ID,"CountryText"))
   countryname = findkeyinfo(countryname)
-  sexF = wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_sex2').get_attribute("value")
+
+  if (gender>0): sexF = wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_sex2').get_attribute("value")
+  else:          sexF = wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_sex1').get_attribute("value")
   ageF = wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_toolage').get_attribute("value")
   weighF = wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_toolweight').get_attribute("value")
   heighF = wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_ht').get_attribute("value")

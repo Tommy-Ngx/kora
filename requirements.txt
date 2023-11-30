@@ -1,5 +1,7 @@
-matplotlib==3.7.1
-numpy==1.24.2
-tqdm==4.65.0
+matplotlib
+numpy
+tqdm
 selenium
-kora
+ipython-autotime
+kora -q
+--upgrade --force-reinstall --no-deps kaggle

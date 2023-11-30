@@ -3,5 +3,4 @@ numpy
 tqdm
 selenium
 ipython-autotime
-kora -q
---upgrade --force-reinstall --no-deps kaggle
+kora 

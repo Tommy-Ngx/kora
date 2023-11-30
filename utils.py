@@ -40,8 +40,8 @@ def Frax(wd,id, gender ,age, weight, height,  prefra, nfall, parent, smoke, rheu
   wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_toolage').clear()
   wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_toolage').send_keys(age)
   #wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_sex2').click()
-  if (gender>0): wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_sex2').click()
-  else:          wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_sex1').click()
+  if (gender>0): wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_sex1').click()
+  else:          wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_sex2').click()
   wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_toolweight').clear()
   wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_toolweight').send_keys(weight)
   wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_ht').clear()
@@ -55,14 +55,14 @@ def Frax(wd,id, gender ,age, weight, height,  prefra, nfall, parent, smoke, rheu
   if (parent>0): wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_pfracturehip2').click()
   else:          wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_pfracturehip1').click()
 
-  if (smoke>1): wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_currentsmoker2').click()
+  if (smoke>0): wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_currentsmoker2').click()
   else:          wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_currentsmoker1').click()
 
   if (corti>0): wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_glucocorticoids2').click()
   else:          wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_glucocorticoids1').click()
   if (rheu>0): wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_arthritis2').click()
   else:          wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_arthritis1').click()
-  if (drink>=3): wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_alcohol2').click()
+  if (drink>0): wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_alcohol2').click()
   else:          wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_alcohol1').click()
 
   countryname = str(wd.find_element(By.ID,"CountryText"))
@@ -70,6 +70,7 @@ def Frax(wd,id, gender ,age, weight, height,  prefra, nfall, parent, smoke, rheu
 
   if (gender>0): sexF = wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_sex2').get_attribute("value")
   else:          sexF = wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_sex1').get_attribute("value")
+  sexF = sexF[0].capitalize()
   ageF = wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_toolage').get_attribute("value")
   weighF = wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_toolweight').get_attribute("value")
   heighF = wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_ht').get_attribute("value")
@@ -92,7 +93,7 @@ def Frax(wd,id, gender ,age, weight, height,  prefra, nfall, parent, smoke, rheu
   HipFracture = findkeyinfo(HipFracture)
 
   print(countryname,((str(int(id))).zfill(5)),"{}|Age:{}|Tscore:{}|MR:{}|HR:{}".format(sexF,ageF,Tscore,Majorosteo, HipFracture ) )
-  outputallthing= [int(id), gender, ageF,weighF, heighF,prefra, nfall ,parent,smoke,rheu,drink,corti,bmdF,dxaF,Tscore,Majorosteo, HipFracture]
+  outputallthing= [int(id), sexF, ageF,weighF, heighF,prefra, nfall ,parent,smoke,rheu,drink,corti,bmdF,dxaF,Tscore,Majorosteo, HipFracture]
   return outputallthing
 
 

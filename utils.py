@@ -30,7 +30,7 @@ def findkeyinfo(countryname):
   countryname = re.sub('[^A-Za-z0-9.-]+','', str(countryname))
   return countryname
 
-def Frax(wd,id, age, weight, height,  prefra, parent, smoke, rheu,  drink, corti, bmd, folder):
+def Frax(wd,id, age, weight, height,  prefra, nfall, parent, smoke, rheu,  drink, corti, bmd, folder):
   os.makedirs(folder, exist_ok=True)
   wd.refresh()
   wd.get("https://www.sheffield.ac.uk/FRAX/tool.aspx?country=57")
@@ -88,7 +88,7 @@ def Frax(wd,id, age, weight, height,  prefra, parent, smoke, rheu,  drink, corti
   HipFracture = findkeyinfo(HipFracture)
 
   print(countryname,((str(int(id))).zfill(5)),"{}|Age:{}|Tscore:{}|MR:{}|HR:{}".format(sexF,ageF,Tscore,Majorosteo, HipFracture ) )
-  outputallthing= [int(id), sexF,ageF,weighF, heighF,prefra,parent,smoke,rheu,drink,corti,bmdF,dxaF,Tscore,Majorosteo, HipFracture]
+  outputallthing= [int(id), sexF,ageF,weighF, heighF,prefra, nfall ,parent,smoke,rheu,drink,corti,bmdF,dxaF,Tscore,Majorosteo, HipFracture]
   return outputallthing
 
 

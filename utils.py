@@ -30,7 +30,7 @@ def findkeyinfo(countryname):
   countryname = re.sub('[^A-Za-z0-9.-]+','', str(countryname))
   return countryname
 
-def Frax(wd,id, age, weight, height,  prefra, nfall, parent, smoke, rheu,  drink, corti, bmd, folder):
+def Frax(wd,id, gender ,age, weight, height,  prefra, nfall, parent, smoke, rheu,  drink, corti, bmd, folder):
   os.makedirs(folder, exist_ok=True)
   wd.refresh()
   wd.get("https://www.sheffield.ac.uk/FRAX/tool.aspx?country=57")
@@ -39,7 +39,9 @@ def Frax(wd,id, age, weight, height,  prefra, nfall, parent, smoke, rheu,  drink
   wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_nameid').send_keys(id)
   wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_toolage').clear()
   wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_toolage').send_keys(age)
-  wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_sex2').click()
+  #wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_sex2').click()
+  if (gender>0): wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_sex2').click()
+  else:          wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_sex1').click()
   wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_toolweight').clear()
   wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_toolweight').send_keys(weight)
   wd.find_element(By.ID,'ctl00_ContentPlaceHolder1_ht').clear()

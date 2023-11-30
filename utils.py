@@ -90,7 +90,7 @@ def Frax(wd,id, gender ,age, weight, height,  prefra, nfall, parent, smoke, rheu
   HipFracture = findkeyinfo(HipFracture)
 
   print(countryname,((str(int(id))).zfill(5)),"{}|Age:{}|Tscore:{}|MR:{}|HR:{}".format(sexF,ageF,Tscore,Majorosteo, HipFracture ) )
-  outputallthing= [int(id), sexF,ageF,weighF, heighF,prefra, nfall ,parent,smoke,rheu,drink,corti,bmdF,dxaF,Tscore,Majorosteo, HipFracture]
+  outputallthing= [int(id), gender, ageF,weighF, heighF,prefra, nfall ,parent,smoke,rheu,drink,corti,bmdF,dxaF,Tscore,Majorosteo, HipFracture]
   return outputallthing
 
 

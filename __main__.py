@@ -54,7 +54,7 @@ def main():
         outputallthing = Frax(
             wd=wd2, id=id1, age=age1, gender=gender1, weight=weight1, height=height1,
             prefra=prefra1, nfall=nfall1, parent=parent1, smoke=smoke1,
-            rheu=rheu1, seosteo=seosteo1 ,seostdrink=drink1, corti=corti1, bmd=bmd1, folder=args.BMD_column
+            rheu=rheu1, seosteo=seosteo1 ,drink=drink1, corti=corti1, bmd=bmd1, folder=args.BMD_column
         )
 
         # Update tqdm description with the relevant information

@@ -89,13 +89,15 @@ def main():
         # Check if the file already exists
         if os.path.isfile(output_csv_path):
             # Append to the existing file without writing header
-            df_FraxResult.to_csv(output_csv_path, mode='a', header=False, encoding='utf-8', index=False)
+            #df_FraxResult.to_csv(output_csv_path, mode='a', header=False, encoding='utf-8', index=False)
+            df_FraxResult.to_csv(output_csv_path, encoding='utf-8', index=False)
         else:
             # Save as a new file with header
             df_FraxResult.to_csv(output_csv_path, encoding='utf-8', index=False)
 
     # Print the final DataFrame
     print(df_FraxResult)
+    df_FraxResult.to_csv(output_csv_path, encoding='utf-8', index=False)
 
 if __name__ == "__main__":
     main()

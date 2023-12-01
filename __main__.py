@@ -44,6 +44,7 @@ def main():
         parent1 = 0  # row['ParentF']
         smoke1 = row['SMOKE']
         rheu1 = row['RHEUMATOID']
+        seosteo1 = row['2OSTEO']
         drink1 = row['DRWK']
         corti1 = row['CORTICOID']
         nfall1 = row['NFALL']
@@ -53,12 +54,12 @@ def main():
         outputallthing = Frax(
             wd=wd2, id=id1, age=age1, gender=gender1, weight=weight1, height=height1,
             prefra=prefra1, nfall=nfall1, parent=parent1, smoke=smoke1,
-            rheu=rheu1, drink=drink1, corti=corti1, bmd=bmd1, folder=args.BMD_column
+            rheu=rheu1, seosteo=seosteo1 ,seostdrink=drink1, corti=corti1, bmd=bmd1, folder=args.BMD_column
         )
 
         # Update tqdm description with the relevant information
         tqdm.write("{}|Age:{}|Tscore:{}|MR:{}|HR:{}".format(
-            outputallthing[1], outputallthing[2], outputallthing[14], outputallthing[15], outputallthing[16]
+            outputallthing[1], outputallthing[2], outputallthing[15], outputallthing[16], outputallthing[17]
         ))
 
         # Update tqdm description with the relevant information
@@ -75,8 +76,8 @@ def main():
         # Rename columns
         df_FraxResult.rename(columns={
             0: 'ID', 1: 'GENDER', 2: 'AGE', 3: 'WGHT', 4: 'HGHT', 5: 'FX50', 6: "NFALL", 7: 'ParentF',
-            8: 'SMOKE', 9: 'RHEUMATOID', 10: 'DRINK', 11: 'CORTICOID', 12: args.BMD_column, 13: "DXA",
-            14: f"Tscore_{args.BMD_column}", 15: f"MOsteo_{args.BMD_column}", 16: f"HipFrax_{args.BMD_column}"
+            8: 'SMOKE', 9: 'RHEUMATOID', 10:"2OSTEO" , 11: 'DRINK', 12: 'CORTICOID', 13: args.BMD_column, 14: "DXA",
+            15: f"Tscore_{args.BMD_column}", 16: f"MOsteo_{args.BMD_column}", 17: f"HipFrax_{args.BMD_column}"
         }, inplace=True)
 
         # Generate current date for the filename

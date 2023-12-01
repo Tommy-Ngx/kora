@@ -28,7 +28,7 @@ def main():
     output2.clear()
     # Print filtered row count
     filtered_row_count = len(FraxInput)
-    print(f"Current row count: {filtered_row_count}")
+    print(f"Current row count: {filtered_row_count1}")
     print(f"Filtered row count: {filtered_row_count}")
 
     FraxResult = []
@@ -60,6 +60,12 @@ def main():
         tqdm.write("{}|Age:{}|Tscore:{}|MR:{}|HR:{}".format(
             outputallthing[1], outputallthing[2], outputallthing[14], outputallthing[15], outputallthing[16]
         ))
+
+        # Update tqdm description with the relevant information
+
+        #tqdm.set_postfix( ID=outputallthing[0], Age=outputallthing[2], Tscore=outputallthing[14],
+        #    MR=outputallthing[15],HR=outputallthing[16])
+        #tqdm.update()
 
         FraxResult.append(outputallthing)
 

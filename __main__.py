@@ -58,7 +58,7 @@ def main():
         )
 
         # Update tqdm description with the relevant information
-        tqdm.write("{}|Age:{}|Tscore:{}|MR:{}|HR:{}".format(
+        tqdm.write("{}|{}|Age:{}|Tscore:{}|MR:{}|HR:{}".format(outputallthing[0],
             outputallthing[1], outputallthing[2], outputallthing[15], outputallthing[16], outputallthing[17]
         ))
 

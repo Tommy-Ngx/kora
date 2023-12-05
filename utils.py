@@ -107,8 +107,8 @@ def Frax(wd, id, gender, age, weight, height, prefra, nfall, parent, smoke, rheu
         dxaF = wd.find_element(By.XPATH, '//*[@id="dxa"]').get_attribute("value")
     else:
         wd.find_element(By.XPATH, '//*[@id="dxa"]/option[5]').click()
-        browser.find_element_by_id("add_button").click()
-
+        
+        #browser.find_element_by_id("add_button").click()
         try:
             WebDriverWait(browser, 3).until(EC.alert_is_present(),'Timed out waiting for PA creation')
             alert = browser.switch_to.alert

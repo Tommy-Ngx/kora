@@ -24,7 +24,7 @@ def main():
     FraxInput = pd.read_csv(args.dataset_dir)
     filtered_row_count1 = len(FraxInput)
     FraxInput = FraxInput[FraxInput[args.BMD_column].notnull()]
-    FraxInput = FraxInput[FraxInput['AGE'] >= 40]
+    FraxInput = FraxInput[FraxInput['AGE'] >= 50]
     FraxInput = FraxInput[(FraxInput['WGHT'] >= 25) & (FraxInput['WGHT'] <= 125)]
     output2.clear()
     # Print filtered row count

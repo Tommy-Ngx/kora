@@ -21,6 +21,7 @@ options.add_argument('--disable-dev-shm-usage')
 # create a webdriver instance, ready to use
 #wd = Chrome('chromedriver',options=options)
 wd = webdriver.Chrome(options=options)
+chrome_options = webdriver.ChromeOptions()
 prefs = {"profile.default_content_setting_values.notifications" : 2}
 chrome_options.add_experimental_option("prefs",prefs)
 wd = webdriver.Chrome(chrome_options=chrome_options)

@@ -50,9 +50,6 @@ def Frax(wd, id, gender, age, weight, height, prefra, nfall, parent, smoke, rheu
     wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_toolweight').send_keys(weight)
     wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_ht').clear()
     wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_ht').send_keys(height)
-    wd.find_element(By.XPATH, '//*[@id="dxa"]/option[3]').click()
-    wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_bmd_input').clear()
-    wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_bmd_input').send_keys(bmd)
 
     if prefra > 0:
         wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_previousfracture2').click()
@@ -101,8 +98,21 @@ def Frax(wd, id, gender, age, weight, height, prefra, nfall, parent, smoke, rheu
     ageF = wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_toolage').get_attribute("value")
     weighF = wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_toolweight').get_attribute("value")
     heighF = wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_ht').get_attribute("value")
-    bmdF = wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_bmd_input').get_attribute("value")
-    dxaF = wd.find_element(By.XPATH, '//*[@id="dxa"]').get_attribute("value")
+
+    if task == "BMD":
+        wd.find_element(By.XPATH, '//*[@id="dxa"]/option[3]').click()
+        wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_bmd_input').clear()
+        wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_bmd_input').send_keys(bmd)
+        bmdF = wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_bmd_input').get_attribute("value")
+        dxaF = wd.find_element(By.XPATH, '//*[@id="dxa"]').get_attribute("value")
+    else:
+        wd.find_element(By.XPATH, '//*[@id="dxa"]/option[5]').click()
+        wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_bmd_input').clear()
+        wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_bmd_input').send_keys(bmd)
+        bmdF = wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_bmd_input').get_attribute("value")
+        #dxaF = wd.find_element(By.XPATH, '//*[@id="dxa"]').get_attribute("value")
+        dxaF  = "T-Score"
+
     time.sleep(2)
 
     wd.find_element(By.XPATH, '//*[@id="ctl00_ContentPlaceHolder1_btnCalculate"]').click()

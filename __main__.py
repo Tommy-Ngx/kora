@@ -66,7 +66,7 @@ def main():
         )
 
         # Update tqdm description with the relevant information
-        if task == "BMD":
+        if args.task == "BMD":
             tqdm.write("{}|{}|Age:{}|Tscore:{}|MR:{}|HR:{}".format(outputallthing[0],
                 outputallthing[1], outputallthing[2], outputallthing[15], outputallthing[16], outputallthing[17]
             ))
@@ -87,7 +87,7 @@ def main():
         df_FraxResult = pd.DataFrame(FraxResult)
 
         # Rename columns
-        if task == "BMD":
+        if args.task == "BMD":
             df_FraxResult.rename(columns={
                 0: 'ID', 1: 'GENDER', 2: 'AGE', 3: 'WGHT', 4: 'HGHT', 5: 'FX50', 6: "NFALL", 7: 'ParentF',
                 8: 'SMOKE', 9: 'RHEUMATOID', 10:"2OSTEO" , 11: 'DRINK', 12: 'CORTICOID', 13: args.BMD_column, 14: "DXA",

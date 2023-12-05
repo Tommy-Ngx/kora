@@ -19,6 +19,8 @@ options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 options.add_argument("--disable-notifications")
+options.add_argument("--disable-popup-blocking")
+
 # create a webdriver instance, ready to use
 #wd = Chrome('chromedriver',options=options)
 wd = webdriver.Chrome(options=options)

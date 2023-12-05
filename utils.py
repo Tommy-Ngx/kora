@@ -107,6 +107,13 @@ def Frax(wd, id, gender, age, weight, height, prefra, nfall, parent, smoke, rheu
         dxaF = wd.find_element(By.XPATH, '//*[@id="dxa"]').get_attribute("value")
     else:
         wd.find_element(By.XPATH, '//*[@id="dxa"]/option[5]').click()
+        browser.find_element_by_id("add_button").click()
+
+        try:
+            WebDriverWait(browser, 3).until(EC.alert_is_present(),'Timed out waiting for PA creation')
+            alert = browser.switch_to.alert
+            alert.accept()
+
         wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_bmd_input').clear()
         wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_bmd_input').send_keys(bmd)
         bmdF = wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_bmd_input').get_attribute("value")

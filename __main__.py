@@ -14,6 +14,7 @@ def parse_arguments():
     parser.add_argument("--dataset-dir", required=True, help="Path to the CSV dataset file")
     parser.add_argument("--save-to", required=True, help="Path to save the output")
     parser.add_argument("--BMD-column", required=True, help="BMD column name")
+    parser.add_argument("--task", required=True, choices=["BMD", "Tscore"], help="Specify the task (BMD or Tscore)")
     return parser.parse_args()
 
 def main():
@@ -51,16 +52,28 @@ def main():
         bmd1 = row[args.BMD_column]
 
         # Call the Frax function from utils
+        #outputallthing = Frax(
+        #    wd=wd2, id=id1, age=age1, gender=gender1, weight=weight1, height=height1,
+        #    prefra=prefra1, nfall=nfall1, parent=parent1, smoke=smoke1,
+        #    rheu=rheu1, seosteo=seosteo1 ,drink=drink1, corti=corti1, bmd=bmd1, folder=args.BMD_column
+        #)
+
+        # Call the Frax function from utils
         outputallthing = Frax(
             wd=wd2, id=id1, age=age1, gender=gender1, weight=weight1, height=height1,
             prefra=prefra1, nfall=nfall1, parent=parent1, smoke=smoke1,
-            rheu=rheu1, seosteo=seosteo1 ,drink=drink1, corti=corti1, bmd=bmd1, folder=args.BMD_column
+            rheu=rheu1, drink=drink1, corti=corti1, bmd=bmd1, folder=args.BMD_column, task=args.task
         )
 
         # Update tqdm description with the relevant information
-        tqdm.write("{}|{}|Age:{}|Tscore:{}|MR:{}|HR:{}".format(outputallthing[0],
-            outputallthing[1], outputallthing[2], outputallthing[15], outputallthing[16], outputallthing[17]
-        ))
+        if task == "BMD":
+            tqdm.write("{}|{}|Age:{}|Tscore:{}|MR:{}|HR:{}".format(outputallthing[0],
+                outputallthing[1], outputallthing[2], outputallthing[15], outputallthing[16], outputallthing[17]
+            ))
+        else:
+            tqdm.write("{}|{}|Age:{}|Tscore:{}|MR:{}|HR:{}".format(outputallthing[0],
+                outputallthing[1], outputallthing[2], outputallthing[15], outputallthing[15], outputallthing[16]
+            ))
 
         # Update tqdm description with the relevant information
 
@@ -74,11 +87,24 @@ def main():
         df_FraxResult = pd.DataFrame(FraxResult)
 
         # Rename columns
-        df_FraxResult.rename(columns={
+        if task == "BMD":
+            df_FraxResult.rename(columns={
+                0: 'ID', 1: 'GENDER', 2: 'AGE', 3: 'WGHT', 4: 'HGHT', 5: 'FX50', 6: "NFALL", 7: 'ParentF',
+                8: 'SMOKE', 9: 'RHEUMATOID', 10:"2OSTEO" , 11: 'DRINK', 12: 'CORTICOID', 13: args.BMD_column, 14: "DXA",
+                15: f"Tscore_{args.BMD_column}", 16: f"MOsteo_{args.BMD_column}", 17: f"HipFrax_{args.BMD_column}"
+            }, inplace=True)
+        else:
+            df_FraxResult.rename(columns={
             0: 'ID', 1: 'GENDER', 2: 'AGE', 3: 'WGHT', 4: 'HGHT', 5: 'FX50', 6: "NFALL", 7: 'ParentF',
             8: 'SMOKE', 9: 'RHEUMATOID', 10:"2OSTEO" , 11: 'DRINK', 12: 'CORTICOID', 13: args.BMD_column, 14: "DXA",
-            15: f"Tscore_{args.BMD_column}", 16: f"MOsteo_{args.BMD_column}", 17: f"HipFrax_{args.BMD_column}"
-        }, inplace=True)
+            15: f"MOsteo_{args.BMD_column}", 16: f"HipFrax_{args.BMD_column}"
+            }, inplace=True)
+
+        #df_FraxResult.rename(columns={
+        #    0: 'ID', 1: 'GENDER', 2: 'AGE', 3: 'WGHT', 4: 'HGHT', 5: 'FX50', 6: "NFALL", 7: 'ParentF',
+        #    8: 'SMOKE', 9: 'RHEUMATOID', 10:"2OSTEO" , 11: 'DRINK', 12: 'CORTICOID', 13: args.BMD_column, 14: "DXA",
+        #    15: f"Tscore_{args.BMD_column}", 16: f"MOsteo_{args.BMD_column}", 17: f"HipFrax_{args.BMD_column}"
+        #}, inplace=True)
 
         # Generate current date for the filename
         current_date = datetime.now().strftime("%d%b%Y")

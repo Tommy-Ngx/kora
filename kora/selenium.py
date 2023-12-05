@@ -6,6 +6,13 @@ os.system('pip install selenium')
 from selenium import webdriver
 # set options to be headless, ..
 from selenium.webdriver import Chrome, ChromeOptions
+
+
+#chrome_options = webdriver.ChromeOptions()
+#prefs = {"profile.default_content_setting_values.notifications" : 2}
+#chrome_options.add_experimental_option("prefs",prefs)
+#driver = webdriver.Chrome(chrome_options=chrome_options)
+
 #options = ChromeOptions()
 options = webdriver.ChromeOptions()
 options.add_argument('--headless')
@@ -14,6 +21,9 @@ options.add_argument('--disable-dev-shm-usage')
 # create a webdriver instance, ready to use
 #wd = Chrome('chromedriver',options=options)
 wd = webdriver.Chrome(options=options)
+prefs = {"profile.default_content_setting_values.notifications" : 2}
+chrome_options.add_experimental_option("prefs",prefs)
+wd = webdriver.Chrome(chrome_options=chrome_options)
 
 # make it easier to query and explore elements
 from selenium.webdriver.remote.webelement import WebElement

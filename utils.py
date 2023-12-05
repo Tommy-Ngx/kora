@@ -111,8 +111,8 @@ def Frax(wd, id, gender, age, weight, height, prefra, nfall, parent, smoke, rheu
         
         #browser.find_element_by_id("add_button").click()
         try:
-            WebDriverWait(browser, 3).until(EC.alert_is_present(),'Timed out waiting for PA creation')
-            alert = browser.switch_to.alert
+            WebDriverWait(wd, 3).until(EC.alert_is_present(),'Timed out waiting for PA creation')
+            alert = wd.switch_to.alert
             alert.accept()
         except TimeoutException:
             pass

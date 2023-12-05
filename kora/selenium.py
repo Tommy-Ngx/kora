@@ -18,13 +18,14 @@ options = webdriver.ChromeOptions()
 options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
+options.add_argument("--disable-notifications")
 # create a webdriver instance, ready to use
 #wd = Chrome('chromedriver',options=options)
 wd = webdriver.Chrome(options=options)
-chrome_options = webdriver.ChromeOptions()
-prefs = {"profile.default_content_setting_values.notifications" : 2}
-chrome_options.add_experimental_option("prefs",prefs)
-wd = webdriver.Chrome(chrome_options=chrome_options)
+#chrome_options = webdriver.ChromeOptions()
+#prefs = {"profile.default_content_setting_values.notifications" : 2}
+#chrome_options.add_experimental_option("prefs",prefs)
+#wd = webdriver.Chrome(chrome_options=chrome_options)
 
 # make it easier to query and explore elements
 from selenium.webdriver.remote.webelement import WebElement

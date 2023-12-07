@@ -42,7 +42,7 @@ def Frax(wd, id, gender, age, weight, height, prefra, nfall, parent, smoke, rheu
     wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_toolage').clear()
     wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_toolage').send_keys(age)
 
-    if gender == M:
+    if gender == 'M':
         wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_sex1').click()
     else:
         wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_sex2').click()
@@ -90,7 +90,7 @@ def Frax(wd, id, gender, age, weight, height, prefra, nfall, parent, smoke, rheu
     countryname = str(wd.find_element(By.ID, "CountryText"))
     countryname = findkeyinfo(countryname)
 
-    if gender == M:
+    if gender == 'M':
         sexF = wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_sex1').get_attribute("value")
     else:
         sexF = wd.find_element(By.ID, 'ctl00_ContentPlaceHolder1_sex2').get_attribute("value")
